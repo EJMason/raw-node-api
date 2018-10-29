@@ -1,5 +1,7 @@
 const http = require('http');
 
+const Server = require('./lib/Server')
+
 const config = {
   nodeEnv: 'development',
   httpOptions: {
@@ -9,7 +11,11 @@ const config = {
 };
 
 const httpServer = http.createServer((req, res) => {
-  //console.log(res)
+
+  const info = Server.processRequestInfo(req)
+  console.log('This is the info: ')
+  console.log(info)
+
   res.end('hello')
 
 }).listen(3000, () => {
@@ -21,3 +27,13 @@ const httpServer = http.createServer((req, res) => {
   url: \t\thttp://localhost:3000
   `)
 });
+
+
+
+function processIncomingRequest(req) {
+
+  return {
+    path: '',
+
+  }
+}
