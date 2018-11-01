@@ -15,6 +15,26 @@ router.addRoute('GET', '/hello', (req, res) => {
   res.end(JSON.stringify(data))
 })
 
+router.addRoute('POST', '/hello', (req, res) => {
+  console.log(req.headers)
+  router.payloadHandler(req, load => {
+    try {
+      const parsed = JSON.parse(load)
+      const data = {
+        statusCode: 200,
+        data: {
+          message: 'payload recieved!',
+          load: parsed
+        }
+      }
+      res.writeHead(200, router.defaultHeaders)
+      res.end(JSON.stringify(data)) 
+    } catch (error) {
+      router.generalErrorHandler(req, res)
+    }
+  })
+})
+
 // this allows separating logic into different files
 router.combineRouters(anotherRouter)
 
