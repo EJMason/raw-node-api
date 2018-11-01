@@ -11,15 +11,13 @@ const config = {
   }
 };
 
-const buildServer = function() {
-  // bootstrap the routes
-  return http.createServer((req, res) => {
-    const action = router.requestHandler(req, res)
-    action(req, res)
-  })
+
+const buildServer = function(router) {
+  // space for some bootsrapping
+  return http.createServer(router.requestHandler)
 }
 
-const httpServer = buildServer().listen(3000, () => {
+const httpServer = buildServer(router).listen(3000, () => {
     console.log(`
     --------- HTTP Server Started ---------
     node_env: \t${config.nodeEnv}
@@ -31,7 +29,7 @@ const httpServer = buildServer().listen(3000, () => {
 
 
 
-if(httpServer.listening) {
+if (httpServer.listening) {
   console.log('Server is listening!')
   httpServer.on('request', (req, res) => {
     const method = Server.getMethod(req)
