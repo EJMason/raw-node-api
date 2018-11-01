@@ -37,13 +37,4 @@ obj.requestHandler = (req, res) => {
 }
 
 
-// ==========================================================
-
-const requestLogger = info => {
-  const dt = new Date().toISOString().replace('T', ' ').substr(0, 19)
-  console.log(`[${dt}] [${info.method}] /${info.router} ${info.subRoute}`)
-  // console.log(info.headers)
-  // console.log(info.query)
-}
-
 module.exports = obj

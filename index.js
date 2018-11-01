@@ -34,7 +34,9 @@ const httpServer = buildServer().listen(3000, () => {
 if(httpServer.listening) {
   console.log('Server is listening!')
   httpServer.on('request', (req, res) => {
-    console.log('There was a request!')
+    const method = Server.getMethod(req)
+    const pathname = Server.getPathName(req)
+    Server.requestLogger(method, pathname)
   })
 }
 
