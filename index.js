@@ -1,41 +1,43 @@
-const http = require('http');
-
-const Server = require('./lib/Server')
-const router = require('./router')
-
-const config = {
-  nodeEnv: 'development',
-  httpOptions: {
-    port: 3000,
-    path: 'localhost'
-  }
-};
 
 
-const buildServer = function(router) {
-  // space for some bootsrapping
-  return http.createServer(router.requestHandler)
-}
+const app = require('./lib/Server')
+// const router = require('./router')
 
-const httpServer = buildServer(router).listen(3000, () => {
-    console.log(`
-    --------- HTTP Server Started ---------
-    node_env: \t${config.nodeEnv}
-    type: \thttp
-    port: \t${config.httpOptions.port}
-    url: \thttp://localhost:3000
-    `)
-  });
+// const config = {
+//   nodeEnv: 'development',
+//   httpOptions: {
+//     port: 3000,
+//     path: 'localhost'
+//   }
+// };
+
+app.start()
 
 
+// const buildServer = function(router) {
+//   // space for some bootsrapping
+//   return http.createServer(router.requestHandler)
+// }
 
-if (httpServer.listening) {
-  console.log('Server is listening!')
-  httpServer.on('request', (req, res) => {
-    if (!res) console.log('no res')
-    const method = Server.getMethod(req)
-    const pathname = Server.getPathName(req)
-    Server.requestLogger(method, pathname)
-  })
-}
+// const httpServer = buildServer(router).listen(3000, () => {
+//     console.log(`
+//     --------- HTTP Server Started ---------
+//     node_env: \t${config.nodeEnv}
+//     type: \thttp
+//     port: \t${config.httpOptions.port}
+//     url: \thttp://localhost:3000
+//     `)
+//   });
+
+
+
+// if (httpServer.listening) {
+//   console.log('Server is listening!')
+//   httpServer.on('request', (req, res) => {
+//     if (!res) console.log('no res')
+//     const method = Server.getMethod(req)
+//     const pathname = Server.getPathName(req)
+//     Server.requestLogger(method, pathname)
+//   })
+// }
 
