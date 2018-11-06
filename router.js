@@ -28,7 +28,7 @@ router.addRoute('POST', '/hello', (req, res) => {
         }
       }
       res.writeHead(200, router.defaultHeaders)
-      res.end(JSON.stringify(data)) 
+      res.end(JSON.stringify(data))
     } catch (error) {
       router.generalErrorHandler(req, res)
     }
