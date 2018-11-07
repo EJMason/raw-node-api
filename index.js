@@ -1,7 +1,6 @@
 
 
-const app = require('./lib/Server')
-// const router = require('./router')
+const app = require('./appHttp')
 
 // const config = {
 //   nodeEnv: 'development',
@@ -11,23 +10,7 @@ const app = require('./lib/Server')
 //   }
 // };
 
-app.start()
-
-
-// const buildServer = function(router) {
-//   // space for some bootsrapping
-//   return http.createServer(router.requestHandler)
-// }
-
-// const httpServer = buildServer(router).listen(3000, () => {
-//     console.log(`
-//     --------- HTTP Server Started ---------
-//     node_env: \t${config.nodeEnv}
-//     type: \thttp
-//     port: \t${config.httpOptions.port}
-//     url: \thttp://localhost:3000
-//     `)
-//   });
+app.test()
 
 
 

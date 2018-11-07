@@ -1,3 +1,13 @@
+
+# configs
+dev_config.js
+prod_config.js
+devCerts
+
+
+# --------------------------------------------------------------------- #
+
+
 # Logs
 logs
 *.log
