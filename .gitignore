@@ -4,6 +4,9 @@ dev_config.js
 prod_config.js
 devCerts
 
+# http testing
+*.http
+
 
 # --------------------------------------------------------------------- #
 

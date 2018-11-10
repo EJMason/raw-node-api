@@ -1,5 +1,14 @@
 {
   "emmet.excludeLanguages": [
     "javascript"
-  ]
+  ],
+
+  "rest-client.environmentVariables": {
+    "$shared": {
+      "host": "localhost"
+    },
+    "local": {
+      "host": "localhost"
+    }
+  }
 }

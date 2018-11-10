@@ -39,3 +39,17 @@ router.addRoute('POST', '/hello', (req, res) => {
 router.combineRouters(anotherRouter)
 
 module.exports = router
+
+const routing = {
+  '/users': {
+    GET: {
+      handler: () => {
+        console.log('test')
+      }
+    }
+  }
+}
+
+routing['/tokens'].GET.middleware = [
+  
+]
