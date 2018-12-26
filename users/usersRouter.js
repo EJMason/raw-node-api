@@ -1,11 +1,21 @@
-const app = require('../appHttp')
 
-app.router.add('/users/test', 'GET', (req, res) => {
-  res.writeHead(200)
-  res.end(JSON.stringify({
-    data: {
-      statusCode: 200,
-      message: 'this is a test'
+const router = {
+  '/users': {
+    GET: (req, res) => {
+      res.writeHead(200)
+
+      const data = {
+        statusCode: 200,
+        data: 'get users'
+      }
+
+      res.end(JSON.stringify(data))
     }
-  }))
-})
+  }
+}
+
+
+
+
+
+module.exports = exports = router
