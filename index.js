@@ -4,6 +4,6 @@ app
   .bootstrap()
   .start()
 
-  console.log(app.router.routes)
+
 
 
