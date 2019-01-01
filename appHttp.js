@@ -4,6 +4,9 @@ const userRouter = require('./users/usersRouter')
 
 const app = new NodeServer('http', config.app.httpPort)
 
+/**
+ * This will add the routes
+ */
 app.setupRouters([
   userRouter
 ])
