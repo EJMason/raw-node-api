@@ -1,7 +1,7 @@
 const routes = require('./routes')
 
 
-const users = exports = module.exports = {}
+const tokens = exports = module.exports = {}
 
 
-users.routes = routes
+tokens.routes = routes

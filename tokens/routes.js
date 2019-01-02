@@ -1,7 +1,7 @@
 
 const router = exports = module.exports = {}
 
-router['/token'] = {
+router['/tokens'] = {
 
   /**
    * Login endpoint, returns a token if login success
