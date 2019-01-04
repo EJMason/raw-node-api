@@ -30,15 +30,30 @@ router['/users'] = {
 
 
   /**
-   * Create a new user
+   * ----------- Create a new user -----------
    *
    * TODO: Check if the user exists already, status code if user exists: ?
    * TODO: ADD new user to the database if they do not already exist, status code: ?
    *
-   * Required Data: name, email, address, street address, password
+   * * Required Data:
+   *    - name (first, last)
+   *    - email
+   *    - address (line1, line2, city, state, zip, country)
+   *    - password
    *
-   * Success Returned Data:
+   * * Success Returned Codes:
+   *    - 201 (Created)
+   *
+   * * Error Codes:
+   *     - 400 (Bad Request)          Missing required data fields
+   *     - 422 (Unprocessable Entity) Data fields do not pass validation
+   *     - 409 (Conflict)             user already exists
+   *     - 500 (Internal Server Error)
+   *
+   * * Returned Data:
+   *    - Object created, less password
    */
+
   POST: (req, res) => {
 
   },

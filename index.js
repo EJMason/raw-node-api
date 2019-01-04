@@ -1,17 +1,22 @@
 const app = require('./appHttp')
-
-app
-  .bootstrap()
-  .start()
+const errorLib = require('./lib/Errors')
 
 
-process.once('SIGINT', () => {
-  console.log('\n\nSIGINT SIGNAL RECEIVED... goodbye....')
 
-  if(app.server) {
-    app.server.close(() => {
-      console.log('The server has been closed successfully')
-      process.exit(0)
-    })
-  }
-})
+app.bootstrap().start()
+
+
+
+errorLib.errorHandler()
+
+
+// process.once('SIGINT', () => {
+//   console.log('\n\nSIGINT SIGNAL RECEIVED... goodbye....')
+
+//   if(app.server) {
+//     app.server.close(() => {
+//       console.log('The server has been closed successfully')
+//       process.exit(0)
+//     })
+//   }
+// })
