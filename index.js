@@ -2,8 +2,15 @@ const app = require('./appHttp')
 const errorLib = require('./lib/Errors')
 
 
+/**
+ * Entry point
+ */
 
-app.bootstrap().start()
+app
+.bootstrap({
+  'Content-Type': 'application/vnd.api+json'
+})
+.start()
 
 
 

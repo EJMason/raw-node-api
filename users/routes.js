@@ -9,23 +9,20 @@ router['/users'] = {
   /**
    * Gets information about a user
    *
-   * TODO: Check if the user exists already, status code if user exists: ?
-   * TODO: ADD new user to the database if they do not already exist, status code: ?
    *
-   * Required Data: name, email, address, street address, password
    *
    * Success Returned Data:
    */
-  GET: (req, res) => {
-    res.writeHead(200)
+  // GET: (req, res) => {
+  //   res.writeHead(200)
 
-    const data = {
-      statusCode: 200,
-      data: 'get users'
-    }
+  //   const data = {
+  //     statusCode: 200,
+  //     data: 'get users'
+  //   }
 
-    res.end(JSON.stringify(data))
-  },
+  //   res.end(JSON.stringify(data))
+  // },
 
 
 
@@ -46,7 +43,7 @@ router['/users'] = {
    *
    * * Error Codes:
    *     - 400 (Bad Request)          Missing required data fields
-   *     - 422 (Unprocessable Entity) Data fields do not pass validation
+   *     - 422 (Unprocessable Entity) Data fields do not pass validation /
    *     - 409 (Conflict)             user already exists
    *     - 500 (Internal Server Error)
    *
@@ -54,8 +51,9 @@ router['/users'] = {
    *    - Object created, less password
    */
 
-  POST: (req, res) => {
-
+  POST: async (req, res) => {
+    res.writeHead(200)
+    res.end('Success')
   },
 
 
@@ -72,7 +70,7 @@ router['/users'] = {
    *
    * Success Returned Data:
    */
-  PUT: (req, res) => {
+  PUT: async (req, res) => {
 
   },
 
@@ -89,7 +87,7 @@ router['/users'] = {
    *
    * Success Returned Data:
    */
-  DELETE: (req, res) => {
+  DELETE: async (req, res) => {
 
   }
 }
@@ -106,7 +104,7 @@ router['/users/cart'] = {
    *
    * Success Returned Data:
    */
-  GET: (req, res) => {
+  GET: async (req, res) => {
 
   },
 
@@ -119,7 +117,7 @@ router['/users/cart'] = {
    *
    * Success Returned Data:
    */
-  DELETE: (req, res) => {
+  DELETE: async (req, res) => {
 
   }
 }
@@ -137,7 +135,7 @@ router['/users/cart/item'] = {
    *
    * Success Returned Data:
    */
-  POST: (req, res) => {
+  POST: async (req, res) => {
 
   },
 
@@ -150,7 +148,7 @@ router['/users/cart/item'] = {
    *
    * Success Returned Data:
    */
-  DELETE: (req, res) => {
+  DELETE: async (req, res) => {
 
   }
 }
