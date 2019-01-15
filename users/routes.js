@@ -1,30 +1,11 @@
-
+const checkers = require('../lib/Validators/index')
+const userHelpers = require('./usersHelpers')
+const error = require('../lib/Errors/responses')
 
 const router = exports = module.exports = {}
 
 // ----------------------------- /users route ----------------------------- //
 router['/users'] = {
-
-
-  /**
-   * Gets information about a user
-   *
-   *
-   *
-   * Success Returned Data:
-   */
-  // GET: (req, res) => {
-  //   res.writeHead(200)
-
-  //   const data = {
-  //     statusCode: 200,
-  //     data: 'get users'
-  //   }
-
-  //   res.end(JSON.stringify(data))
-  // },
-
-
 
   /**
    * ----------- Create a new user -----------
@@ -35,7 +16,7 @@ router['/users'] = {
    * * Required Data:
    *    - name (first, last)
    *    - email
-   *    - address (line1, line2, city, state, zip, country)
+   *    - address (line1, line2, city, state, zip)
    *    - password
    *
    * * Success Returned Codes:
@@ -51,9 +32,65 @@ router['/users'] = {
    *    - Object created, less password
    */
 
-  POST: async (req, res) => {
-    res.writeHead(200)
-    res.end('Success')
+  POST: (req, res) => {
+    // First make sure the data that has arrived passes validation
+
+    if(!checkers.objectHasAllProperties(req.body, 'name', 'email', 'address', 'password')) {
+      return error.custom(req, res, 'Missing required properties: {name, email, address, password}', 422)
+    }
+
+    const { name, email, address, password } = req.body
+
+    // send message for invalid name
+    if(!checkers.objectHasAllProperties(name, 'first', 'last') || !checkers.isString(name.first) || !checkers.isString(name.last)) {
+      return error.custom(req, res, 'Name must contain required properties: {first, last} and must be the correct data type', 422)
+    }
+
+    // send message for invalid address
+    if(!checkers.objectHasAllProperties(address, 'line1', 'city', 'state', 'zip')
+      || !checkers.isString(address.line1)
+      || !checkers.isString(address.city)
+      || !checkers.isString(address.state)
+      || !checkers.isNumber(address.zip)
+    ) {
+      return error.custom(req, res, 'Address must contain required properties: {line1, city, state, zip}, and must be the correct data type. line2 is optional', 422)
+    }
+
+    if(!userHelpers.stateIsValid(address.state)) {
+      return error.custom(req, res, 'State Invalid', 422)
+    }
+
+    // Send a message for invalid email
+    if(!userHelpers.isEmailValid(email)) {
+      return error.custom(req, res, 'Must provide a valid email.', 422)
+    }
+
+    // send a message for valid password
+    if(!userHelpers.isPasswordValid(password)) {
+      return error.custom(req, res, 'Please provide a valid password: 8 characters, at least: 1 digit, one lowercase, one uppercase.', 422)
+    }
+
+    // TODO: If user already exists, then return a 409
+
+
+    //  ?Alright, everything looks good so now what to do in a correct response situation?
+
+    // Hash up the password to store it
+
+    // Create the user in the database
+
+    // send back data to the user, less password and 201 response
+
+
+
+
+    res.writeHead(201)
+
+    const data = {
+      testing: 'success'
+    }
+
+    res.end(JSON.stringify(data))
   },
 
 
