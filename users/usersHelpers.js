@@ -32,5 +32,6 @@ module.exports.stateIsValid = (state) => {
 
   if (!(typeof state === 'string')) return false
   if (state.length !== 2) return false
-  if ((stateAbbreviations.includes(state.toUpperCase())))
+  if (!(stateAbbreviations.includes(state.toUpperCase()))) return false
+  return true
 }
