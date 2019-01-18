@@ -1,6 +1,7 @@
 const checkers = require('../lib/Validators/index')
-const userHelpers = require('./usersHelpers')
 const error = require('../lib/Errors/responses')
+const userHelpers = require('./usersHelpers')
+const userController = require('./usersController.js')
 
 const router = exports = module.exports = {}
 
@@ -47,11 +48,11 @@ router['/users'] = {
     }
 
     // send message for invalid address
-    if(!checkers.objectHasAllProperties(address, 'line1', 'city', 'state', 'zip')
-      || !checkers.isString(address.line1)
-      || !checkers.isString(address.city)
-      || !checkers.isString(address.state)
-      || !checkers.isNumber(address.zip)
+    if(!checkers.objectHasAllProperties(address, 'line1', 'city', 'state', 'zip') ||
+      !checkers.isString(address.line1) ||
+      !checkers.isString(address.city) ||
+      !checkers.isString(address.state) ||
+      !checkers.isNumber(address.zip)
     ) {
       return error.custom(req, res, 'Address must contain required properties: {line1, city, state, zip}, and must be the correct data type. line2 is optional', 422)
     }
@@ -80,6 +81,14 @@ router['/users'] = {
     // Create the user in the database
 
     // send back data to the user, less password and 201 response
+    userController.checkIfUserExists(email)
+      .then(uid => {
+        if (!uid) {
+          return error.custom(req, res, 'User Already exists, please login.', 409)
+        }
+
+        userController.createNewUser(uid, )
+      })
 
 
 
