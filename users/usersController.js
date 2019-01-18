@@ -1,3 +1,5 @@
+const path = require('path')
+
 const tokenizer = require('../lib/Tokenizer')
 const orm = require('../lib/textORM')
 
@@ -9,8 +11,8 @@ module.exports.checkIfUserExists = (email) => new Promise((resolve, reject) => {
   let uid = ''
   tokenizer.createUserId(email)
   .then(id => {
-    uid = id
-    return orm.ormUtils.fileExists(uid)
+    uid = id.toString('hex')
+    return orm.ormUtils.fileExists(path.join(__dirname, '../.data/users/', `${uid}.json`))
   })
   .then(idExists => {
     if (idExists) {
@@ -29,5 +31,9 @@ module.exports.checkIfUserExists = (email) => new Promise((resolve, reject) => {
  * Add new user to the database
  */
 module.exports.createNewUser = (uid, user) => new Promise((resolve, reject) => {
-  
+  orm
+    .ormUtils
+    .createEntry('users', uid, user)
+      .then(resolve)
+      .catch(reject)
 })

@@ -1,5 +1,6 @@
 const checkers = require('../lib/Validators/index')
 const error = require('../lib/Errors/responses')
+const myUtils = require('../lib/utils')
 const userHelpers = require('./usersHelpers')
 const userController = require('./usersController.js')
 
@@ -43,16 +44,16 @@ router['/users'] = {
     const { name, email, address, password } = req.body
 
     // send message for invalid name
-    if(!checkers.objectHasAllProperties(name, 'first', 'last') || !checkers.isString(name.first) || !checkers.isString(name.last)) {
+    if(!checkers.objectHasAllProperties(name, 'first', 'last') || !checkers.typing.isString(name.first) || !checkers.typing.isString(name.last)) {
       return error.custom(req, res, 'Name must contain required properties: {first, last} and must be the correct data type', 422)
     }
 
     // send message for invalid address
     if(!checkers.objectHasAllProperties(address, 'line1', 'city', 'state', 'zip') ||
-      !checkers.isString(address.line1) ||
-      !checkers.isString(address.city) ||
-      !checkers.isString(address.state) ||
-      !checkers.isNumber(address.zip)
+      !checkers.typing.isString(address.line1) ||
+      !checkers.typing.isString(address.city) ||
+      !checkers.typing.isString(address.state) ||
+      !checkers.typing.isNumber(address.zip)
     ) {
       return error.custom(req, res, 'Address must contain required properties: {line1, city, state, zip}, and must be the correct data type. line2 is optional', 422)
     }
@@ -71,35 +72,39 @@ router['/users'] = {
       return error.custom(req, res, 'Please provide a valid password: 8 characters, at least: 1 digit, one lowercase, one uppercase.', 422)
     }
 
-    // TODO: If user already exists, then return a 409
+    let _uid
 
-
-    //  ?Alright, everything looks good so now what to do in a correct response situation?
-
-    // Hash up the password to store it
-
-    // Create the user in the database
-
-    // send back data to the user, less password and 201 response
     userController.checkIfUserExists(email)
       .then(uid => {
         if (!uid) {
           return error.custom(req, res, 'User Already exists, please login.', 409)
+        } else {
+          _uid = uid.toString('hex')
+          return myUtils.scryptcrypt(password)
         }
+      })
+      .then(hashPass => {
+        const userData = {}
+        userData.uid = _uid
+        userData.email = email
+        userData.password = hashPass
+        userData.name = name
+        userData.address = address
 
-        userController.createNewUser(uid, )
+        const str = JSON.stringify(userData)
+        if (_uid) return userController.createNewUser(_uid, str)
+      })
+      .then(uData => {
+        if (uData) {
+          res.writeHead(201)
+          return res.end(uData)
+        }
+      })
+      .catch((err) => {
+        if(err.code && !res.finished) return error.custom(req, res, 'unknown error occured', 400)
       })
 
 
-
-
-    res.writeHead(201)
-
-    const data = {
-      testing: 'success'
-    }
-
-    res.end(JSON.stringify(data))
   },
 
 
