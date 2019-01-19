@@ -121,7 +121,7 @@ router['/users'] = {
    *
    * Success Returned Data:
    */
-  PUT: async (req, res) => {
+  PUT: (req, res) => {
 
   },
 
@@ -138,7 +138,7 @@ router['/users'] = {
    *
    * Success Returned Data:
    */
-  DELETE: async (req, res) => {
+  DELETE: (req, res) => {
 
   }
 }
@@ -155,7 +155,7 @@ router['/users/cart'] = {
    *
    * Success Returned Data:
    */
-  GET: async (req, res) => {
+  GET: (req, res) => {
 
   },
 
@@ -168,7 +168,7 @@ router['/users/cart'] = {
    *
    * Success Returned Data:
    */
-  DELETE: async (req, res) => {
+  DELETE: (req, res) => {
 
   }
 }
@@ -186,7 +186,7 @@ router['/users/cart/item'] = {
    *
    * Success Returned Data:
    */
-  POST: async (req, res) => {
+  POST: (req, res) => {
 
   },
 
@@ -199,7 +199,7 @@ router['/users/cart/item'] = {
    *
    * Success Returned Data:
    */
-  DELETE: async (req, res) => {
+  DELETE: (req, res) => {
 
   }
 }
